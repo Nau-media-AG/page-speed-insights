@@ -1,0 +1,27 @@
+name: Page Speed Insights
+
+on:
+  schedule:
+    - cron: "0 6,18 * * *" # 8:00 and 20:00 Swiss time (UTC+2)
+
+jobs:
+  run-psi:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        domain:
+          - "https://www.nau.ch"
+          - "https://bern.nau.ch"
+          - "https://techtrends.nau.ch"
+        strategy:
+          - mobile
+          - desktop
+    steps:
+      - name: Running Page Speed Insights
+        uses: jakepartusch/psi-action@v1.3
+        id: psi
+        with:
+          url: ${{ matrix.domain }}
+          threshold: 90
+          strategy: ${{ matrix.strategy }}
+          key: ${{ secrets.PSI_API_KEY }}
