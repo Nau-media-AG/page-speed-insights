@@ -3,6 +3,7 @@ name: Page Speed Insights
 on:
   schedule:
     - cron: "0 6,18 * * *" # 8:00 and 20:00 Swiss time (UTC+2)
+  workflow_dispatch: # Allow manual trigger of the workflow
 
 jobs:
   run-psi:
